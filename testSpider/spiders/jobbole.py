@@ -89,7 +89,7 @@ class JobboleSpider(scrapy.Spider):
                               '//*[@class =" btn-bluet-bigger href-style vote-post-up   register-user-only "]/h10/text()')
         item_loader.add_xpath("collect_num", '//span[contains(@data-site-id,"13")]/text()')
         item_loader.add_xpath("comment_num", '//span[@class = "btn-bluet-bigger href-style hide-on-480"]/text()')
-        item_loader.add_xpath("content", '//span[@class = "btn-bluet-bigger href-style hide-on-480"]/text()')
+        # item_loader.add_xpath("content", '//div[@class="entry"]')
         item_loader.add_value("url", response.url)
         item_loader.add_value("image_url", [front_image_url])
         item_loader.add_value("url_object_id", response.url)
