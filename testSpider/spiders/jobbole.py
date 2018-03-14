@@ -3,6 +3,8 @@ import scrapy
 import  re
 from urllib import  parse
 from scrapy.http import Request
+from testSpider.items import ArticleItem
+from testSpider.Tools.common import  get_MD5
 
 class JobboleSpider(scrapy.Spider):
     name = 'jobbole'
@@ -62,4 +64,19 @@ class JobboleSpider(scrapy.Spider):
 
         # 文章内容
         content = response.xpath("//div[@class='entry']").extract_first("")
-        a = 1
+
+        # 封面图
+        front_image_url = response.meta.get("front_image_url","")
+
+        aritcle_item = ArticleItem()
+        aritcle_item['title_name'] = title_name
+        aritcle_item['public_time'] = public_time
+        aritcle_item['good_num'] = good_num
+        aritcle_item['collect_num'] = collect_num
+        aritcle_item['comment_num'] = comment_num
+        aritcle_item['content'] = content
+        aritcle_item['url'] = response.url
+        aritcle_item['image_url'] = [front_image_url]
+        aritcle_item['url_object_id'] = get_MD5(response.url)
+
+        yield  aritcle_item
